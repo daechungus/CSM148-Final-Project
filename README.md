@@ -1,7 +1,7 @@
 # CSM148-Final-Project
 
 i. the data set your team used
-The dataset that our team *"Something Fishy"* used was the tree covertype dataset [https://archive.ics.uci.edu/dataset/31/covertype](url) which was a classification of pixels into seven different forest types based on attributes such as elevation, aspect, slope, hillshade, soil-type, and more.  
+The dataset that our team *"Something Fishy"* used was the tree covertype dataset [https://archive.ics.uci.edu/dataset/31/covertype](url), which was a classification of pixels into seven different forest types based on attributes such as elevation, aspect, slope, hillshade, soil-type, and more.  
 
 ii. the overview of the problem your team addressed
 
