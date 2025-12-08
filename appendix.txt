@@ -2,6 +2,7 @@
 project goal from the check-ins. You should use this as a check-list to make sure you discuss all of
 these aspects of your work either in your main report or appendix. If a method is the key method
 in the main document, you can just mention that it is discussed in the main document.
+
 i. Explain the exploratory data analysis that you conducted. What was done to visualize your
 data and split your data for training and testing?
 
@@ -34,3 +35,5 @@ that attempt.
 
 viii. Give examples of hyperparameter tuning that you applied in preparing your project and how
 you chose the best parameters for models.
+
+??????????? for NN? for RF? idrk
