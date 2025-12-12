@@ -3,37 +3,42 @@ project goal from the check-ins. You should use this as a check-list to make sur
 these aspects of your work either in your main report or appendix. If a method is the key method
 in the main document, you can just mention that it is discussed in the main document.
 
-i. Explain the exploratory data analysis that you conducted. What was done to visualize your
+### i. Explain the exploratory data analysis that you conducted. What was done to visualize your
 data and split your data for training and testing?
 
 
-ii. What data pre-processing and feature engineering (or data augmentation) did you complete
+### ii. What data pre-processing and feature engineering (or data augmentation) did you complete
 on your project?
 
 
-iii. How was regression analysis applied in your project? What did you learn about your data
+### iii. How was regression analysis applied in your project? What did you learn about your data
 set from this analysis and were you able to use this analysis for feature importance? Was
 regularization needed?
 
 
-iv. How was logistic regression analysis applied in your project? What did you learn about your
+### iv. How was logistic regression analysis applied in your project? What did you learn about your
 data set from this analysis and were you able to use this analysis for feature importance?
 Was regularization needed?
 
 
-v. How were KNN, decision trees, or random forest used for classification on your data? What
+### v. How were KNN, decision trees, or random forest used for classification on your data? What
 method worked best for your data and why was it good for the problem you were addressing?
 
 
-vi. How were PCA and clustering applied on your data? What method worked best for your
+### vi. How were PCA and clustering applied on your data? What method worked best for your
 data and why was it good for the problem you were addressing?
 
+For our dataset, we first did a standard PCA without any scaling. In retrosight, this was probably not that good of an idea because the numerical features in X_nums had quite the different when compared to one another. For example, prior to scaling, two principal components (which were probably horizontal_distance_to_roadways and elevation, explained 97% of the total variance in comparison to thet eight principal components that were needed to explain a similar level of variance after scaling. Overall, scaling the data before the PCA was crucial to prevent thef eatures with large magnitudes from disproportionately influencing the principal components and the classification of the cover_types. 
 
-vii. Explain how your project attempted to use a neural network on the data and the results of
+'''
+I'll continue to add more of an explanation I need to lock in for my last final tomorrow ;-;
+'''
+
+### vii. Explain how your project attempted to use a neural network on the data and the results of
 that attempt.
 
 
-viii. Give examples of hyperparameter tuning that you applied in preparing your project and how
+### viii. Give examples of hyperparameter tuning that you applied in preparing your project and how
 you chose the best parameters for models.
 
 ??????????? for NN? for RF? idrk
