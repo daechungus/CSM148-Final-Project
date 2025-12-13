@@ -1,44 +1,53 @@
-(b) Appendix: In the appendix you will discuss the methods that you applied to reach your final
-project goal from the check-ins. You should use this as a check-list to make sure you discuss all of
-these aspects of your work either in your main report or appendix. If a method is the key method
-in the main document, you can just mention that it is discussed in the main document.
+Appendix
+i. Explain the exploratory data analysis that you conducted. What was done to visualize your data and split your data for training and testing?
+We conducted EDA in our main analysis. Please refer to the Main Document.
 
-### i. Explain the exploratory data analysis that you conducted. What was done to visualize your
-data and split your data for training and testing?
+After uploading the data from the repository we looked into the metadata and the variable information of the features and target. For ease of further analysis, we also created a new dataframe that combined both the feature dataframe and target dataframe. All features and targets were numerical data types: cover type targets were represented as a numerical value from 1 through 7, and categorical features were one-hot encoded to be multiple columns of binary features. Basic information about the data was printed such as the number of observations (581,102) and features (55 including the target feature) we were working with. Additionally, we mapped categorical labels to cover types for ease of interpretability in the EDA section.
 
+We validated that there were no missing features in the dataset. Unique values were counted for each feature to validate continuous and discrete numerical features generated from one-hot encoding.
 
-### ii. What data pre-processing and feature engineering (or data augmentation) did you complete
-on your project?
+We begin our visualizations with the correlation matrix, which identifies some features such as Hillshade 3pm and Aspect as moderately positively correlated, followed by Hillshade Noon and Hillshade 3pm. Hillshade 3pm and Hillshade 9pm are strongly negatively correlated, followed by Hillshade 9am and Aspect and Hillshade Noon and Slope.
 
+The boxplots show a large quantity of observations outside the 1.5 x IQR range, suggesting slightly heavy-tailed distribution. Therefore we retain outliers to avoid discarding potentially significant observations. If we move to observe plotting Elevations against Cover Types, we can observe the quartile ranges in Elevation and other features that are characteristics of different Cover Types. Note that most ranges contain some form of overlap between multiple Cover Types. For example, we observe that based on this diagram, features like horizontal or vertical distance to hydrology have limited discriminatory power.
 
-### iii. How was regression analysis applied in your project? What did you learn about your data
-set from this analysis and were you able to use this analysis for feature importance? Was
-regularization needed?
+Histograms of the numerical data show that some data is skewed, so we may need to consider log-transforming the data if it makes the model more effective.
 
+We move to analyze potential category imbalances in some features. Plotting the counts of Cover Types show that the most common target is cover type 2, and the least common is cover type 4, which has much less than the rest of the outcomes. Although the target variable is imbalanced, no explicit stratification was applied during the train/test split.
 
-### iv. How was logistic regression analysis applied in your project? What did you learn about your
-data set from this analysis and were you able to use this analysis for feature importance?
-Was regularization needed?
+Additionally, we plot the counts of each Soil Type and notice that there are some soil types that have very few counts. For most soil types, 0 appears hundreds of thousands of times but 1 appears only a few thousand times.
 
+We end our analyses by looking at wilderness areas as a point of interest. Plotting boxplots of Elevation by Wilderness Area, we note that most sites have about the same elevation except for Poudre, which has a distribution of elevations shifted lower than the other 3. There may be a possible correlation for trees at Poudre with water distance due to the area’s lower elevation. The remaining of our analyses involved plotting the frequency of different Cover Types by Wilderness Area and finding that Areas 1, 2, and 3 have higher counts of Lodgepole Pine and Spruce Cover Types, and Area 4 tends to have more Ponderosa and Douglass-fir.
 
-### v. How were KNN, decision trees, or random forest used for classification on your data? What
-method worked best for your data and why was it good for the problem you were addressing?
+Finally, the dataset was split into training and testing sets using an 80/20 split with a fixed random seed (2025) to ensure reproducible results.
+ii. What data pre-processing and feature engineering (or data augmentation) did you complete on your project?
+To echo the Dataset Information from the UCI Machine Learning Repository, the dataset was already cleaned of missing values, and the categorical data features such as soil type and wilderness area were already one-hot encoded for optimized model fitting.
+iii. How was regression analysis applied in your project? What did you learn about your data set from this analysis and were you able to use this analysis for feature importance? Was regularization needed?
+We applied regression analysis to predicting Horizontal_Distance_To_Hydrology using Elevation and Vertical_Distance_To_Hydrology because they had the highest correlation with our response variable. We conducted cross validation on the dataset and regression task and found that the MSE of the model using the training dataset is 0.013. The MSE of the cross validation results average to 0.014. Since the MSE of the cross validation is generally the same as the MSE of the model, the model is generalizing well.
 
+After constructing the linear regression model, we found the standardized coefficient values which tells us the variable importance for each feature. Vertical_Distance_To_Hydrology was a much more important feature, with a coefficient of 1.177, while Elevation only had a coefficient of 0.274.
 
-### vi. How were PCA and clustering applied on your data? What method worked best for your
-data and why was it good for the problem you were addressing?
+We also tested whether regularization was needed for our model. We applied Ridge Regression with alpha values [0, 0.01, 0.1, 1, 10, 100] and found that ridge regression is almost identical to the ODS. Therefore, the alpha values do not affect the final results too much and regularization is not needed.
+iv. How was logistic regression analysis applied in your project? What did you learn about your data set from this analysis and were you able to use this analysis for feature importance? Was regularization needed?
+We applied logistic regression to a binary classification task distinguishing Wilderness Area 1 (Rawah) from Area 3 (Comanche Peak). These two areas differ in topography and use context, so identifying which types of measures/predictors separate them can help identify the covertype of a tree at the coordinate. We also focused on these two areas because they have relatively equal sample sizes in the data, and there would be no class imbalance.
 
-For our dataset, we first did a standard PCA without any scaling. In retrosight, this was probably not that good of an idea because the numerical features in X_nums had quite the different when compared to one another. For example, prior to scaling, two principal components (which were probably horizontal_distance_to_roadways and elevation, explained 97% of the total variance in comparison to thet eight principal components that were needed to explain a similar level of variance after scaling. Overall, scaling the data before the PCA was crucial to prevent thef eatures with large magnitudes from disproportionately influencing the principal components and the classification of the cover_types. 
+After constructing the logistic regression model, we found the standardized coefficient values which tells us the variable importance for each feature. The top 3 features were Hillshade_3pm, Horizontal_Distance_To_Roadways, and Horizontal_Distance_To_Fire_Points, and these could be important features in our final model that predicts covertype.
 
-'''
-I'll continue to add more of an explanation I need to lock in for my last final tomorrow ;-;
-'''
+Through hyperparameter tuning, we found that the optimal value of C for logistic regression was 10. The baseline value is 1, and a larger value of C means there is less regularization applied. This tells us that regularization is not really needed.
+v. How were KNN, decision trees, or random forest used for classification on your data? What method worked best for your data and why was it good for the problem you were addressing?
+We used Random Forest for our main analysis. Please refer to the Main Document.
+vi. How were PCA and clustering applied on your data? What method worked best for your data and why was it good for the problem you were addressing?
+First, we applied PCA to our dataset with an unscaled PCA and a scaled PCA. The scaled version was to normalize the numerical features as some features may have different scales/ranges such as elevation or hillshade values, and unscaled PCA would have just been dominated by features that had larger numerical values. 
 
-### vii. Explain how your project attempted to use a neural network on the data and the results of
-that attempt.
+Next, we applied two clustering methods with K-means and hierarchical with ward linkage and euclidean distance. Our problem with predicting forest cover types was largely based on the geographic and environmental features so the combination of PCA and clustering was particularly ineffective because it would take a long time to run through all 500k data points, but with PCA, we could understand which features were most important from distinguishing cover types, namely PC1 and PC2. PC1 was mainly made up of Horizontal_Distance_To_Roadways and Horizontal_Distance_To_Fire_Points, PC2 being Horizontal_Distance_To_Fire_Points and Horizontal_Distance_To_Roadways second.
 
+After we did the clustering, we can see from the purity types that both clustering methods were ineffective. K-means had a dominant cover type of 2 with purity range of 0.326 - 0.526 meaning the it did not create clusters cleanly to the distinct cover types and had a lot of mixtures. Hierarchical clustering had type 3, 1, and 2 as dominated types but the best purity was barely 0.542 meaning it was able to find a couple clusters that were able to hint towards identifying a particular type, but the separation was still too weak to consider. In the end, with a rand score of barely above 0, clustering was not a good method for our dataset. 
+vii. Explain how your project attempted to use a neural network on the data and the results of that attempt.
+For the neural network, we used a deep neural network with 4 layers: the input layer, output layer, and two hidden layers. The hidden layers had 1024 neurons each and we used the sigmoid activation function. The output layers have 7 neurons, one for each forest cover type. For regularization we also applied dropout to prevent coadaptation. 
 
-### viii. Give examples of hyperparameter tuning that you applied in preparing your project and how
-you chose the best parameters for models.
+For the data, we split the data into training, validation, and testing. We also scaled the input data and split the data into training and testing, stratifying the sampling to preserve the forest type distribution. We used SGD with a learning rate lr = 0.001.
 
-??????????? for NN? for RF? idrk
+Running the training for 10 epochs, we found that the accuracy is about 91%, which shows that using neural networks could provide a reasonable way to classify forest cover types.
+viii. Give examples of hyperparameter tuning that you applied in preparing your project and how you chose the best parameters for models.
+We applied hyperparameter tuning in many of our models to figure out which set of hyperparameters performed the best.
+
+In logistic regression, we searched for the best C value for regularization, testing C = [0.01, 0.1, 1, 10, 100], with the optimal value being C = 10. In our random forest modeling, we fit models with a different number of estimators (10 vs. 100). There was not a significant improvement in accuracy with more estimators so we concluded that the model with only 10 estimators is the best for our needs, since the predictive power is pretty similar but the model is faster to train and much more computationally efficient to use.
