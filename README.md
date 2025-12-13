@@ -38,4 +38,3 @@ Run CS_M148_group_project.ipynb
 
 Citation:
 J. Blackard. "Covertype," UCI Machine Learning Repository, 1998. [Online]. Available: https://doi.org/10.24432/C50K5N.
-
