@@ -14,7 +14,7 @@ Histograms of the numerical data show that some data is skewed, so we may need t
 
 We move to analyze potential category imbalances. Plotting the counts of Cover Types show that the most common target is cover type 2, and the least common is cover type 4, which has much less than the rest of the outcomes. Although the target variable is imbalanced, no explicit stratification was applied during the train/test split.
 
-Counts of each Soil Type revealed that there are some soil types that have very few counts. For most soil types, with 0 appearing far more frequently than 1.
+Counts of each Soil Type revealed that there are some soil types that have very few counts. For most soil types, 0 appeared far more frequently than 1.
 
 We end our analyses by looking at wilderness areas as a point of interest. Plotting boxplots of Elevation by Wilderness Area, we note that most sites have about the same elevation except for Poudre, which has a distribution of elevations shifted lower than the other 3. There may be a possible correlation for trees at Poudre with water distance due to the area’s lower elevation. Additional plots of Cover Types frequency by Wilderness Area and finding that Areas 1, 2, and 3 have higher counts of Lodgepole Pine and Spruce Cover Types, and Area 4 tends to have more Ponderosa and Douglass-fir.
 
